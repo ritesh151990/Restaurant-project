@@ -1,14 +1,33 @@
+
+import { useState } from "react";
 import CartContext from "./cart-context";
 
 const CartProvider =(props) =>{
-    const addItemToCartHandler= (item) =>{};
-    const removeItemFromCartHandler=(id) =>{};
+    const [items, updateItems]= useState([]);
+    
+    const addItemToCartHandler= (item) =>{
+        let hasItem=false;
+        const newItemArray=[ ...items];
+        newItemArray.forEach((element,index )=> {
+            if(item.id===element.id){
+            hasItem=true;
+                newItemArray[index].quantity=Number(newItemArray[index].quantity)+Number(item.quantity);
+            }
+        });
+        if(hasItem===false)
+        updateItems([...items,item]);
+        else
+        updateItems(newItemArray);
+    };
+    const removeItemFromCartHandler=(id) =>{
+        
+    };
     
     const cartContext ={
-        items:[],
-        totalAmount:0,
+        items: items,
         addItem: addItemToCartHandler,
-        removeItem: removeItemFromCartHandler
+        removeItem: removeItemFromCartHandler,
+        message:'View cart'
     };
     return <CartContext.Provider value={cartContext}>
         {props.children}
