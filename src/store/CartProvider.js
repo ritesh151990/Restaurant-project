@@ -12,6 +12,7 @@ const CartProvider =(props) =>{
             if(item.id===element.id){
             hasItem=true;
                 newItemArray[index].quantity=Number(newItemArray[index].quantity)+Number(item.quantity);
+                
             }
         });
         if(hasItem===false)
@@ -19,9 +20,18 @@ const CartProvider =(props) =>{
         else
         updateItems(newItemArray);
     };
-    const removeItemFromCartHandler=(id) =>{
-        
-    };
+    const removeItemFromCartHandler=((item) =>{
+        const newItemArray=[ ...items];
+        newItemArray.forEach((element,index )=>{
+        if(item.id===element.id)
+        {
+              newItemArray.splice(index,1)
+              
+        }
+       })
+       updateItems(newItemArray);
+    }
+    );
     
     const cartContext ={
         items: items,

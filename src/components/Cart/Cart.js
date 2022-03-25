@@ -7,7 +7,21 @@ import classes from './Cart.module.css';
 const Cart = (props) =>{
     let total=0;
     const cartcntx=useContext(CartContext)
+
    const hasItems = cartcntx.items.length >0;
+   
+   const addItemHandler=(item)=>{
+
+   cartcntx.addItem({ ...item,quantity:1})
+   }
+   const removeItemHandler=(item)=>{
+       if(item.quantity>0){
+       cartcntx.addItem({...item,quantity:-1})
+       }
+       else
+       cartcntx.removeItem(item)
+   }
+  
     const cartItems =(<ul className={classes['cart-items']}>
         {cartcntx.items.map((item)=> (
           
@@ -15,14 +29,19 @@ const Cart = (props) =>{
      name={item.name}
      quantity={item.quantity}
      price={item.price}
+     onAdd={addItemHandler.bind(null,item)}
+     onRemove={removeItemHandler.bind(null,item)}
      /> 
    ))}
      </ul>
     )
+    
      cartcntx.items.forEach((item) => {
-       total=total+(Number(item.quantity)*Number(item.price));
+        total=total+(Number(item.quantity)*Number(item.price));
         });
+
         total= `$${total.toFixed(2)}`;
+       
 return(
  <Modal onClose={props.onClose}>
      {cartItems}

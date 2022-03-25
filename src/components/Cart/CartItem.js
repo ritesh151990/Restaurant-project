@@ -1,6 +1,27 @@
+import React  from 'react';
 import classes from './CartItem.module.css';
 
+
 const CartItem = (props) => {
+  
+ 
+// const[quantity,setQuantity]=useState(props.quantity);
+// const onAdd=()=>{
+//   setQuantity(Number(quantity)+1);
+ 
+// }
+// const onRemove=()=>{
+//   if(quantity>0){
+//   setQuantity(Number(quantity)-1);
+//   }
+//   else{
+//   setQuantity(0);
+//   }
+  
+// }
+
+
+
   const price = props.price.toFixed(2);
   let totalprice=Number(price)*Number(props.quantity);
   totalprice=totalprice.toFixed(2);
@@ -19,8 +40,10 @@ const CartItem = (props) => {
         <button onClick={props.onRemove}>−</button>
         <button onClick={props.onAdd}>+</button>
         <div className={classes.linebreak}>${totalprice}</div>
-      </div>
+        
+        </div>
     </li>
+    
   );
 };
 
